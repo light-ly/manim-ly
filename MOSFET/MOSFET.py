@@ -50,25 +50,24 @@ class AnimateMOS(Scene):
         square_eg = Polygon(*points_eg, color=GRAY, fill_opacity=1, stroke_width=0)
         square_oxi = Polygon(*points_oxi, color=BLACK, fill_opacity=1, stroke_width=0)
 
-        mosfet = VGroup(*square_base, *square_n, *square_es, *square_eg, *square_ed, *square_oxi)
+        mosfet = VGroup(square_base, square_n, square_es, square_eg, square_ed, square_oxi)
 
         points = [LEFT * 1 + UP * 0.5, LEFT * 1, RIGHT * 1, RIGHT * 1 + UP * 0.5]
         lines = VGroup(*[Line(points[i], points[i + 1]) for i in range(3)])
         arc = ArcBetweenPoints(points[-1], points[0], angle=TAU / 6)
-        lines.stroke_width = 0
-        arc.stroke_width = 0
-        quadrilateral = VGroup(*lines, arc)
+        lines.set_stroke(width=0)
+        arc.set_stroke(width=0)
+        quadrilateral = VGroup(lines, arc)
         quadrilateral.set_fill(GREEN, opacity=1)
 
         # 创建直线
         arc1 = ArcBetweenPoints(points[-1], points[0], angle=TAU / 12)
-        lines.stroke_width = 0
-        arc1.stroke_width = 0
-        qua_target = VGroup(*lines, arc1)
+        arc1.set_stroke(width=0)
+        qua_target = VGroup(lines, arc1)
         qua_target.set_fill(GREEN, opacity=1)
 
         # 显示四边形
         self.add(mosfet)
         self.add(quadrilateral)
-        self.play(Transform(quadrilateral, qua_target), run_time=10)
+        self.play(Transform(quadrilateral, qua_target), run_time=5)
         self.wait()
